@@ -1,6 +1,8 @@
 /** Copyright 2011 Fabian Steeg, University of Cologne, http://github.com/spinfo */
 import static org.junit.Assert.assertEquals;
 
+import java.util.Iterator;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -63,7 +65,7 @@ public class Lists {
 	}
 
 	/** The queue class enforces the restricted FIFO access. */
-	class Queue /**/implements List/**/{
+	class Queue /**/implements Iterable<Object> /* like implements List *//**/{
 
 		private Node first;
 		private Node last;
@@ -91,7 +93,7 @@ public class Lists {
 
 		/**/
 		@Override
-		public Iterator iterator() {
+		public Iterator<Object> iterator() {
 			return new NodeIterator(first);
 		}
 		/**/
@@ -120,7 +122,7 @@ public class Lists {
 	}
 
 	/** The stack class enforces the restricted LIFO access. */
-	class Stack /**/implements List/**/{
+	class Stack /**/implements Iterable<Object> /* like implements List *//**/{
 
 		private Node first;
 
@@ -146,7 +148,7 @@ public class Lists {
 
 		/**/
 		@Override
-		public Iterator iterator() {
+		public Iterator<Object> iterator() {
 			return new NodeIterator(first);
 		}
 		/**/
@@ -159,27 +161,31 @@ public class Lists {
 		list.enqueue("first");
 		list.enqueue("second");
 		list.enqueue("third");
-		System.out.println("Iterate: ");
-		Iterator iterator = list.iterator();
+		System.out.println("Iterate using Iterator: ");
+		Iterator<?> iterator = list.iterator();
 		while (iterator.hasNext()) {
 			System.out.println(iterator.next());
+		}
+		System.out.println("Iterate using Iterable: ");
+		for (Object o : list) {
+			System.out.println(o);
 		}
 	}
 
 	/** A sequence can be traversed. */
 	interface List {
-		Iterator iterator();
+		Iterator<?> iterator();
 	}
 
 	/** Representation of the stateful traversal. */
-	interface Iterator {
+	interface SimpleIterator {
 		Object next();
 
 		boolean hasNext();
 	}
 
 	/** Iterator implementation based on linked nodes. */
-	class NodeIterator implements Iterator {
+	class NodeIterator implements Iterator<Object> /* like SimpleIterator */{
 		private Node current;
 
 		public NodeIterator(Node first) {
@@ -199,6 +205,11 @@ public class Lists {
 		@Override
 		public boolean hasNext() {
 			return current != null;
+		}
+
+		@Override
+		public void remove() {
+			throw new IllegalStateException("Not implemented");
 		}
 
 	}
