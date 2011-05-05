@@ -54,7 +54,7 @@ public class Trees {
     tree.addRecursive(4);
     tree.addRecursive(7);
     tree.addRecursive(6);
-    assertEquals(Arrays.asList(5, 3, 2, 4, 8, 7, 6), tree.inorder());
+    assertEquals(Arrays.asList(5, 3, 2, 4, 8, 7, 6), tree.preorder());
   }
 
   @Test
@@ -136,28 +136,28 @@ public class Trees {
       }
     }
 
-    /* Two inorder traversals: collect values, visualize with Graphviz DOT */
+    /* Two preorder traversals: collect values, visualize with Graphviz DOT */
 
-    public List<Integer> inorder() {
-      return inorder(root, new ArrayList<Integer>());
+    public List<Integer> preorder() {
+      return preorder(root, new ArrayList<Integer>());
     }
 
-    public List<Integer> inorder(BinaryNode node, List<Integer> result) {
+    public List<Integer> preorder(BinaryNode node, List<Integer> result) {
       if (node == null)
         return result;
-      result.add(node.value); // In-order: 1. root
-      inorder(node.left, result); // 2. left
-      inorder(node.right, result); // 3. right
+      result.add(node.value); // Pre-order: 1. root
+      preorder(node.left, result); // 2. left
+      preorder(node.right, result); // 3. right
       return result;
     }
 
-    public String visualize() { // another in-order traversal
+    public String visualize() { // another Pre-order traversal
       StringBuilder builder = new StringBuilder();
       return String.format("digraph{%s}", visualize(root, builder));
     }
 
     private String visualize(BinaryNode node, StringBuilder builder) {
-      if (node != null) { // In-order: 1. root
+      if (node != null) { // Pre-order: 1. root
         if (node.left != null)
           builder.append(String.format("%s->%s;", node, node.left));
         visualize(node.left, builder); // 2. left
