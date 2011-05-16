@@ -22,8 +22,8 @@ public class HashTables {
   class DirectAddressTable {
     Object[] table = new Object[100]; // lots of space wasted
 
-    public void put(int key, Person tom) {
-      table[key] = tom;
+    public void put(int key, Object person) { // only numeric key supported
+      table[key] = person;
     }
 
     public Object get(int key) {
@@ -67,16 +67,16 @@ public class HashTables {
 
     class Element {
       Element next;
-      /* int */Object key;
+      Object key; // key can be of any type
       Object value;
 
-      public Element(/* int */Object key, Object value) {
+      public Element(Object key, Object value) {
         this.key = key;
         this.value = value;
       }
     }
 
-    public void put(/* int */Object key, Object value) {
+    public void put(Object key, Object value) {
       Element newElement = new Element(key, value);
       int slot = hash(key);
       Element e = table[slot];
@@ -87,7 +87,7 @@ public class HashTables {
       }
     }
 
-    public Object get(/* int */Object key) {
+    public Object get(Object key) {
       Element e = table[hash(key)];
       if (e == null) // no value in slot
         return null;
@@ -98,7 +98,7 @@ public class HashTables {
       return e.key.equals(key) ? e.value : null;
     }
 
-    private int hash(/* int */Object key) {
+    private int hash(Object key) {
       // simple demo hash: map key to table length
       if (key instanceof Integer) {
         return ((Integer) key) % table.length;
