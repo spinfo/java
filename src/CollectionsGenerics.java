@@ -147,4 +147,14 @@ public class CollectionsGenerics {
     assertEquals(2, Collections.binarySearch(vals, 37)); // binsearch, O(log n)
     assertEquals(5, Collections.binarySearch(vals, 93));
   }
+
+  @Test
+  public void wrappers() {
+    /* We can convert collections by passing them to the constructor: */
+    List<String> list = Arrays.asList("one", "one", "two", "two");
+    assertEquals(4, list.size());
+    /* Remove duplicates by wrapping the list in a set: */
+    Set<String> set = new HashSet<String>(list);
+    assertEquals(2, set.size());
+  }
 }
