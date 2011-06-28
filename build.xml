@@ -1,0 +1,97 @@
+<!--
+Copyright 2011 Fabian Steeg, University of Cologne, http://github.com/spinfo
+-->
+
+<!-- CRISP builds with Ant: compile, deploy, document, and test the code -->
+<project name="java" default="all">
+
+	<!-- Folders: the existing project setup -->
+	<property name="src.dir" location="src" />
+	<property name="lib.dir" location="lib" />
+	
+	<!-- Folders: generated and cleaned by script -->
+	<property name="build.dir" location="build" />
+	<property name="build.classes.dir" location="${build.dir}/classes" />
+	<property name="build.dist.dir" location="${build.dir}/dist" />
+	<property name="doc.dir" location="${build.dir}/doc" />
+	<property name="jar.file" location="${build.dist.dir}/java.jar" />
+	<property name="tests.dir" location="${build.dir}/tests" />
+	<property name="tests.reports.dir" location="${tests.dir}/reports" />
+	<property name="tests.summary.dir" location="${tests.dir}/summary" />
+
+	<!-- Java version config: -->
+	<property name="ant.java.version" value="1.6" />
+
+	<!-- The classpath: where the classes and libs are to be found -->
+	<path id="project.classpath">
+		<pathelement location="${build.classes.dir}" />
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- Complete deployment: build Jar and Jacadocs -->
+	<target name="all" depends="jar, doc, report" />
+
+	<!-- Prepare the build: create folders -->
+	<target name="prepare">
+		<mkdir dir="${build.classes.dir}" />
+		<mkdir dir="${build.dist.dir}" />
+		<mkdir dir="${doc.dir}" />
+		<mkdir dir="${tests.reports.dir}" />
+		<mkdir dir="${tests.summary.dir}" />
+	</target>
+
+	<!-- Delete the generated files and folders -->
+	<target name="clean">
+		<delete includeemptydirs="true">
+			<fileset dir="${build.dir}" />
+			<fileset dir="${doc.dir}" />
+		</delete>
+	</target>
+
+	<!-- Compile source files -->
+	<target name="compile" depends="prepare">
+		<javac srcdir="${src.dir}" destdir="${build.classes.dir}" includeantruntime="false">
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
+	<!-- Build a distribution jar-->
+	<target name="jar" depends="compile">
+		<jar destfile="${jar.file}" basedir="${build.classes.dir}"/>
+	</target>
+
+	<!-- Generate javadoc documentation-->
+	<target name="doc" depends="compile">
+		<!-- the classpathref is an important detail here; without it we hit this bug: 
+			 http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6442982 -->
+		<javadoc classpathref="project.classpath" sourcepath="${src.dir}" destdir="${doc.dir}" />
+	</target>
+
+	<!-- Run the tests -->
+	<target name="test" depends="compile">
+		<junit haltonfailure="no" printsummary="true">
+			<classpath refid="project.classpath" />
+			<batchtest todir="${tests.reports.dir}">
+				<formatter type="xml" />
+				<!--<formatter type="brief" usefile="false"/>-->
+				<!--We run only the suites containing 'Suite' in their name-->
+				<fileset dir="${build.classes.dir}" includes="**/*Suite*.class" />
+			</batchtest>
+		</junit>
+	</target>
+
+	<!-- Report the test results -->
+	<target name="report" depends="test">
+		<!-- collect the results into a summary report -->
+		<junitreport todir="${tests.summary.dir}">
+			<fileset dir="${tests.reports.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${tests.summary.dir}" />
+		</junitreport>
+		<echo message="Wrote summary test report to: ${tests.summary.dir}" />
+	</target>
+
+</project>

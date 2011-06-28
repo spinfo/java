@@ -1,3 +1,5 @@
+package spinfo;
+
 /** Copyright 2011 Fabian Steeg, University of Cologne, http://github.com/spinfo */
 import static org.junit.Assert.assertTrue;
 
@@ -116,7 +118,7 @@ public class Crawling {
     }
   }
 
-  /** Test the actual crawling. */
+  /** Test the actual crawling, quick sample. */
   @Test
   public void crawl() throws InterruptedException {
     /* Now that we have a way to process a single web site, we can crawl: */
@@ -124,6 +126,13 @@ public class Crawling {
         "http://www.zeit.de");
     /* Process the seed only: */
     assertTrue(Crawler.crawl(seed, 0).size() == seed.size());
+  }
+
+  /** Test the actual crawling, long-running sample. */
+  // @Test // (long-running task, comment in to run)
+  public void crawlMore() throws InterruptedException {
+    List<String> seed = Arrays.asList("http://www.ub.uni-koeln.de/",
+        "http://www.zeit.de");
     /* Process seed and one level down: */
     int linksPerSite = 5; // estimation: > 5 links / site
     assertTrue(Crawler.crawl(seed, 1).size() > seed.size() * linksPerSite);

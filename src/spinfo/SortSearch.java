@@ -1,3 +1,5 @@
+package spinfo;
+
 /** Copyright 2011 Fabian Steeg, University of Cologne, http://github.com/spinfo */
 import static org.junit.Assert.assertEquals;
 
@@ -94,7 +96,7 @@ public class SortSearch {
 
 	@Test(expected = StackOverflowError.class)
 	public void factorialOverflow() {
-		factorial(10000);
+		factorial(Integer.MAX_VALUE);
 	}
 
 	/* Recursive, divide-and-conquer binary search implementation */

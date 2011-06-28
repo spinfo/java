@@ -1,3 +1,5 @@
+package spinfo;
+
 /** Copyright 2011 Fabian Steeg, University of Cologne, http://github.com/spinfo */
 
 import static org.junit.Assert.assertEquals;
@@ -25,7 +27,7 @@ public class EditDistance {
   public void performance() {
     runPerformanceTest(new DynamicProgrammingEditDistance());
     runPerformanceTest(new MemoizedEditDistance());
-    runPerformanceTest(new RecursiveEditDistance());
+    // runPerformanceTest(new RecursiveEditDistance()); /* long-running */
   }
 
   /** Edit distance interface: number of operations to change s1 into s2. */
@@ -36,7 +38,7 @@ public class EditDistance {
 
   /** Implementation based on simple recursion. */
 
-  class RecursiveEditDistance implements Edit {
+  static class RecursiveEditDistance implements Edit {
     private String s1;
     private String s2;
 
@@ -63,7 +65,9 @@ public class EditDistance {
       if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
         return distance(i - 1, j - 1);
       }
-      /* For each edit x: three recursive descents, i.e. exp. runtime: O(3^x) */
+      /*
+       * For each edit x: three recursive descents, i.e. exp. runtime: O(3^x)
+       */
       int del = distance(i - 1, j) + 1;
       int ins = distance(i, j - 1) + 1;
       int rep = distance(i - 1, j - 1) + 1;
@@ -73,7 +77,7 @@ public class EditDistance {
 
   /** Implementation based on memoized recursion. */
 
-  class MemoizedEditDistance extends RecursiveEditDistance {
+  static class MemoizedEditDistance extends RecursiveEditDistance {
     private Map<String, Integer> map = new HashMap<String, Integer>();
 
     @Override
@@ -85,7 +89,9 @@ public class EditDistance {
     @Override
     protected int distance(final int i, final int j) {
       String pair = i + ", " + j;
-      /* Only if we have not seen the pair before, we delegate to superclass: */
+      /*
+       * Only if we have not seen the pair before, we delegate to superclass:
+       */
       if (!map.containsKey(pair)) {
         map.put(pair, super.distance(i, j));
       }
@@ -144,7 +150,8 @@ public class EditDistance {
       distance.distance("nacktschnecke", "rechtschaffen");
     }
     System.out.println(String.format(" %s ms.", System.currentTimeMillis()
-        - start)); // typical result: 3, 200, 60000 ms. for rec., memo., dp
+        - start)); // typical result: 3, 200, 60000 ms. for rec., memo.,
+    // dp
   }
 
 }
