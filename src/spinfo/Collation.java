@@ -1,5 +1,7 @@
-package spinfo;
 /** Copyright 2011 Fabian Steeg, University of Cologne, http://github.com/spinfo */
+
+package spinfo;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -45,8 +47,8 @@ public class Collation {
     final Map<Character, Integer> collationKeys = new HashMap<Character, Integer>();
     collationKeys.put('U', 1); // or lower-level, with array: char['U'] = 1;
     collationKeys.put('u', 2);
-    collationKeys.put('\u00dc', 3); //Ü
-    collationKeys.put('\u00fc', 4); //ü
+    collationKeys.put('\u00dc', 3); // Ü
+    collationKeys.put('\u00fc', 4); // ü
     collationKeys.put('V', 5);
     collationKeys.put('v', 6);
     /* We pass a custom sorting strategy to the sort method: */

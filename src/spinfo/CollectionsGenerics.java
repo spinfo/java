@@ -1,5 +1,7 @@
-package spinfo;
 /** Copyright 2011 Fabian Steeg, University of Cologne, http://github.com/spinfo */
+
+package spinfo;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -67,7 +69,8 @@ public class CollectionsGenerics {
     assertTrue(tree.root.value instanceof String);
   }
 
-  static class Tree<T> { // T becomes concrete on creation, e.g. String, Integer, etc.
+  static class Tree<T> { // T becomes concrete on creation, e.g. String,
+                         // Integer, etc.
     Node<T> root;
   }
 

@@ -1,5 +1,7 @@
-package spinfo;
 /** Copyright 2011 Fabian Steeg, University of Cologne, http://github.com/spinfo */
+
+package spinfo;
+
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

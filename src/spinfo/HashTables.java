@@ -1,5 +1,7 @@
-package spinfo;
 /** Copyright 2011 Fabian Steeg, University of Cologne, http://github.com/spinfo */
+
+package spinfo;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
