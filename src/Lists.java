@@ -2,6 +2,7 @@
 import static org.junit.Assert.assertEquals;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -197,6 +198,9 @@ public class Lists {
 
 		@Override
 		public Object next() {
+			if (current.value == null) {
+				throw new NoSuchElementException();
+			}
 			Object next = current.value;
 			current = current.next;
 			return next;
