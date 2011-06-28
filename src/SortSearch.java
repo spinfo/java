@@ -92,8 +92,7 @@ public class SortSearch {
 		assertEquals(3628800, factorial(10));
 	}
 
-	@Test(
-			expected = StackOverflowError.class)
+	@Test(expected = StackOverflowError.class)
 	public void factorialOverflow() {
 		factorial(10000);
 	}
@@ -191,6 +190,14 @@ public class SortSearch {
 			return that instanceof Book
 					&& ((Book) that).author.equals(this.author)
 					&& ((Book) that).title.equals(this.title);
+		}
+
+		@Override
+		public int hashCode() { // use same values as in equals
+			int result = 17;
+			result = 31 * result + author.hashCode();
+			result = 31 * result + title.hashCode();
+			return result;
 		}
 
 	}
