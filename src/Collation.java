@@ -92,7 +92,7 @@ public class Collation {
         "ultra"), new Word("Very")), words);
   }
 
-  class Word implements Comparable<Word> {
+  static class Word implements Comparable<Word> {
 
     private String val;
     private Collator collator = Collator.getInstance(); // uses system locale

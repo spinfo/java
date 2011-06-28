@@ -13,10 +13,10 @@ public class Trees {
 	/* Basic implementation strategy: nodes and links/pointers/references */
 
 	/* Simple binary tree, two pointers in each node. */
-	class SimpleTree {
+	static class SimpleTree {
 		SimpleNode root;
 
-		class SimpleNode {
+		static class SimpleNode {
 			Object value;
 			SimpleNode left;
 			SimpleNode right;
@@ -24,20 +24,20 @@ public class Trees {
 	}
 
 	/* Simple multi-children tree, with a list of children in each node. */
-	class MultiTree {
+	static class MultiTree {
 		MultiNode root;
 
-		class MultiNode {
+		static class MultiNode {
 			Object value;
 			List<MultiNode> children; // n references per node for n children
 		}
 	}
 
 	/* Multi-children tree implemented like a linked list: less references. */
-	class LinkedTree {
+	static class LinkedTree {
 		LinkedNode root;
 
-		class LinkedNode {
+		static class LinkedNode {
 			Object value;
 			LinkedNode head;
 			LinkedNode tail; // 2 references per node for n children
@@ -71,10 +71,10 @@ public class Trees {
 				tree.visualize());
 	}
 
-	class BinaryTree {
+	static class BinaryTree {
 		BinaryNode root;
 
-		class BinaryNode {
+		static class BinaryNode {
 			public BinaryNode(int value) {
 				this.value = value;
 			}

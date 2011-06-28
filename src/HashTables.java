@@ -19,7 +19,7 @@ public class HashTables {
     Assert.assertEquals(jim, t.get(75));
   }
 
-  class DirectAddressTable {
+  static class DirectAddressTable {
     Object[] table = new Object[100]; // lots of space wasted
 
     public void put(int key, Object person) { // only numeric key supported
@@ -31,7 +31,7 @@ public class HashTables {
     }
   }
 
-  class Person {
+  static class Person {
 
     private String name;
 
@@ -61,11 +61,11 @@ public class HashTables {
     Assert.assertEquals(joe, t.get(85));
   }
 
-  class HashTable {
+  static class HashTable {
 
     Element[] table = new Element[10]; // scale down
 
-    class Element {
+    static class Element {
       Element next;
       Object key; // key can be of any type
       Object value;
@@ -127,7 +127,7 @@ public class HashTables {
     Assert.assertFalse(s1.hashCode() == s2.hashCode());
   }
 
-  class Student {
+  static class Student {
     int id;
     String first;
     String last;

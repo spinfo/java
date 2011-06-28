@@ -56,7 +56,7 @@ public class Lists {
 	}
 
 	/** A list element: wraps a value and a reference to the next element. */
-	class Node {
+	static class Node {
 		Object value;
 		Node next;
 
@@ -66,7 +66,7 @@ public class Lists {
 	}
 
 	/** The queue class enforces the restricted FIFO access. */
-	class Queue /**/implements Iterable<Object> /* like implements List *//**/{
+	static class Queue /**/implements Iterable<Object> /* like implements List *//**/{
 
 		private Node first;
 		private Node last;
@@ -123,7 +123,7 @@ public class Lists {
 	}
 
 	/** The stack class enforces the restricted LIFO access. */
-	class Stack /**/implements Iterable<Object> /* like implements List *//**/{
+	static class Stack /**/implements Iterable<Object> /* like implements List *//**/{
 
 		private Node first;
 
@@ -186,7 +186,7 @@ public class Lists {
 	}
 
 	/** Iterator implementation based on linked nodes. */
-	class NodeIterator implements Iterator<Object> /* like SimpleIterator */{
+	static class NodeIterator implements Iterator<Object> /* like SimpleIterator */{
 		private Node current;
 
 		public NodeIterator(Node first) {

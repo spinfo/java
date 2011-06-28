@@ -162,7 +162,7 @@ public class SortSearch {
 		System.out.println("Sorted: " + sort);
 	}
 
-	class Book implements Comparable<Book> {
+	static class Book implements Comparable<Book> {
 
 		private String title;
 		private String author;

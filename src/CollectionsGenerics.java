@@ -66,11 +66,11 @@ public class CollectionsGenerics {
     assertTrue(tree.root.value instanceof String);
   }
 
-  class Tree<T> { // T becomes concrete on creation, e.g. String, Integer, etc.
+  static class Tree<T> { // T becomes concrete on creation, e.g. String, Integer, etc.
     Node<T> root;
   }
 
-  class Node<T> {
+  static class Node<T> {
     T value;
     Node<T> left;
     Node<T> right;

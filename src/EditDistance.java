@@ -95,7 +95,7 @@ public class EditDistance {
 
   /** Implementation based on dynamic programming. */
 
-  class DynamicProgrammingEditDistance implements Edit {
+  static class DynamicProgrammingEditDistance implements Edit {
     @Override
     public int distance(final String s1, final String s2) {
       /* We fill the table once, i.e. linear runtime: O(i + 1 + j + 1) */
