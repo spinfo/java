@@ -187,12 +187,8 @@ public class Crawling {
         crawl(url, 0); // start crawling, and catch all that can go wrong here
       } catch (InterruptedException e) {
         e.printStackTrace();
-      } catch (MalformedURLException e) {
-        e.printStackTrace();
       } catch (SAXException e) {
         e.printStackTrace();
-      } catch (IOException e) {
-        System.out.println("Crawl error: " + e.getMessage()); // e.g. dead links
       }
     }
 
@@ -201,14 +197,21 @@ public class Crawling {
      * below the depth limit, call itself with the outgoing links of the page.
      */
     private void crawl(final String url, final int current)
-        throws InterruptedException, SAXException, IOException {
-      WebDocument doc = Parser.parse(url);
-      result.add(doc);
-      System.out.println("Crawled: " + url);
-      Thread.sleep(300); // delay for politeness (no server request flood)
-      if (current < depth) {
-        for (String link : doc.links) {
-          crawl(link, current + 1);
+        throws InterruptedException, SAXException {
+      WebDocument doc = null;
+      try {
+        doc = Parser.parse(url);
+      } catch (IOException e) {
+        System.out.println("Crawl error: " + e.getMessage());
+      }
+      if (doc != null) {
+        result.add(doc);
+        System.out.println("Crawled: " + url);
+        Thread.sleep(300); // delay for politeness (no server request flood)
+        if (current < depth) {
+          for (String link : doc.links) {
+            crawl(link, current + 1);
+          }
         }
       }
     }
