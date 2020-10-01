@@ -1,1 +1,2 @@
 "Java at the University of Cologne, Department of Linguistics (Sprachliche Informationsverarbeitung)":http://spinfo.uni-koeln.de/spinfo-java.html
+Amazing java product having some codes using collections wonderful code writing
